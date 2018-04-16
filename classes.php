@@ -4,44 +4,56 @@
 
 	class Car
 	{
-		public $model; 
-		public $region; 
+		public $model;
+		public $region;
 		public $price;
 		
-			public function __construct($model, $region, $price)
+		public function __construct($model, $region, $price)
 		{
 			$this->model = $model;
 			$this->region = $region;
 			$this->price = $price;
-			echo 'Автомобиль ' . $this->model . ' доступен в регионе ' . $this->region . ' по цене ' . $this->price . ' рублей.<br>';
+		}
+		
+		public function toString()
+		{
+			return "Автомобиль {$this->model} доступен в регионе {$this->region} по цене {$this->price} рублей.<br>";
 		}
 	}
 
 	class TV
 	{
-		public $model; 
-		public $diagonal; 
-		public $price; 
+		public $model;
+		public $diagonal;
+		public $price;
 		
-			public function __construct($model, $diagonal, $price)
+		public function __construct($model, $diagonal, $price)
 		{
 			$this->model = $model;
 			$this->diagonal = $diagonal;
 			$this->price = $price;
-			echo 'В наличие имеется телевизор ' . $this->model . ' диагональю ' . $this->diagonal . ' дюймов по цене '  . $this->price . '.<br>';
+		}
+		
+		public function toString()
+		{
+			return "В наличие имеется телевизор {$this->model} диагональю {$this->diagonal} дюймов по цене {$this->price} рублей.<br>";
 		}
 	}
 
-	class Pen 
+	class Pen
 	{
 		public $color;
 		public $amount;
 		
-			public function __construct($color, $amount)
+		public function __construct($color, $amount)
 		{
 			$this->color = $color;
 			$this->amount = $amount;
-			echo 'Нужно купить ' . $this->amount . ' ручки ' . $this->color . ' цвета.<br>';
+		}
+		
+		public function toString()
+		{
+			return "Нужно купить {$this->amount} ручки {$this->color} цвета.<br>";
 		}
 	}
 
@@ -50,20 +62,22 @@
 		public $color;
 		public $size;
 		
-			public function __construct($color, $size)
+		public function __construct($color, $size)
 		{
 			$this->color = $color;
 			$this->size = $size;
 		}
 		
-			public function checkUgly()
+		public function checkUgly()
 		{
-			if ($this->color == 'белый' && $this->size == 'big') 
+			if ($this->color == 'белый' && $this->size == 'big')
 			{
 				return 'Это же Гадкий утёнок!<br>';
-			} else {
-					return "Этот $this->color утёнок нормально выглядит. <br>";
-				}
+			}
+			else
+			{
+				return "Этот {$this->color} утёнок нормально выглядит. <br>";
+			}
 		}
 	}
 
@@ -73,23 +87,28 @@
 		public $amount;
 		public $price;
 		
-			public function __construct($name, $amount, $price)
+		public function __construct($name, $amount, $price)
 		{
 			$this->name = $name;
 			$this->amount = $amount;
 			$this->price = $price;
 		}
 		
-			public function getPrice()
+		public function getPrice()
 		{
-			if ($this->amount < 10) 
+			$str = "Стоимость билета по направлению <strong>{$this->name}</strong> на данный момент равна ";
+			if ($this->amount < 10)
 			{
-				return 'Стоимость билета по направлению <strong>' . $this->name . '</strong> на данный момент равна ' . round($this->price + ($this->price * 0.5)) . '.<br>'; 
-			} elseif ($this->amount > 90) {
-					return 'Стоимость билета по направлению <strong>' . $this->name . '</strong> на данный момент равна ' . round($this->price - ($this->price * 0.5)) . '.<br>'; 
-				} else {
-						return 'Стоимость билета по направлению <strong>' . $this->name . '</strong> на данный момент равна ' . $this->price . '.<br>';
-					}
+				return $str . round($this->price + ($this->price * 0.5)) . '.<br>';
+			}
+			elseif ($this->amount > 90)
+			{
+				return $str . round($this->price - ($this->price * 0.5)) . '.<br>';
+			}
+			else
+			{
+				return $str . $this->price . '.<br>';
+			}
 		}
 	}
 ?>
@@ -100,21 +119,27 @@
 	<title>Классы</title>
 <body>
 <h1>Машина</h1>
-<?php 
+<?php
 $Megane = new Car('Renault Megane', 'Москва', 800000);
+echo $Megane -> toString();
 $Picanto = new Car('Kia Picanto', 'Нижний Новгород', 550000);
+echo $Picanto -> toString();
 ?>
 
 <h1>Телевизор</h1>
-<?php 
+<?php
 $samsung = new TV('Samsung', 40, 100000);
+echo $samsung -> toString();
 $lg = new TV('LG', 42, 120000);
+echo $lg -> toString();
 ?>
 
 <h1>Шариковая ручка</h1>
-<?php 
+<?php
 $bluepen = new Pen('синего', 4);
+echo $bluepen -> toString();
 $greenpen = new Pen('зеленого', 2);
+echo $greenpen -> toString();
 ?>
 
 <h1>Утка</h1>
@@ -128,7 +153,7 @@ echo $white_duck->checkUgly();
 ?>
 
 <h1>Товар</h1>
-<?php 
+<?php
 $ticket_NN_MSK = new Product('Нижний Новгород - Москва', 50, 1000);
 echo $ticket_NN_MSK->getPrice();
 $ticket_MSK_NVR = new Product('Москва - Новороссийск', 1, 4000);
